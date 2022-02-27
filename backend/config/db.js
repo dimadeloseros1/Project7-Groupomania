@@ -8,13 +8,13 @@ const pool = mysql.createPool({
     password: process.env.DB_PASSWORD,
 })
 
-let sql = "SELECT * FROM project7.post;";
+let sql = "SELECT * FROM project7.users;";
 
 pool.execute(sql, function(err, result){
     if (err) throw err;
 
     result.forEach((res) => {
-        console.log(res.idpost);
+        console.log(res.username);
     });
 });
 
