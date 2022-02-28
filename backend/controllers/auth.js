@@ -1,7 +1,7 @@
 //Imports
 const bcrypt = require('bcrypt');
-const jwtUtils = require('../utils/jwt.utils');
-const models = require('../models');
+const jwtUtils = require('../middleware/auth');
+const models = require('../models/user');
 const validator = require('validator');
 
 
