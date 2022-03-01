@@ -1,21 +1,18 @@
-require("dotenv").config({ path: "../.env" });
-const mysql = require("mysql2");
+const dotenv = require("dotenv");
+dotenv.config();
+const Sequelize = require("sequelize");
+console.log("Get connection ...");
 
-const pool = mysql.createPool({
+const sequelize = new Sequelize({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
-})
-
-let sql = "SELECT * FROM project7.users;";
-
-pool.execute(sql, function(err, result){
-    if (err) throw err;
-
-    result.forEach((res) => {
-        console.log(res.username);
-    });
+    dialect: "mysql",
 });
 
-module.exports = pool.promise();
+//export the db connection.
+var exports = (module.exports = {});
+exports.sequelize = sequelize;
+
+

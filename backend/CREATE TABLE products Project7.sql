@@ -1,0 +1,7 @@
+CREATE TABLE products(
+id INT(11) PRIMARY KEY AUTO_INCREMENT,
+title VARCHAR(200),
+price DOUBLE,
+createdAt DATE,
+updatedAt DATE
+)ENGINE=INNODB;

@@ -1,9 +1,7 @@
-
 const fs = require('fs');
 const user = require('./user');
 const jwt = require('jsonwebtoken');
 
-const models = require('../models');
 
 module.exports = {
 
