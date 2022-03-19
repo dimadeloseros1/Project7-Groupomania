@@ -7,10 +7,19 @@ app.use(express.json())
 
 const db = require("./config/db")
 
-const likeModel = require("./models/like")
-const postModel = require("./models/posts")
-const userModel = require("./models/user")
 
+    db.sequelize.authenticate().then(
+      () => console.log('Connection has been established successfully.')
+  
+    ).catch(
+        (error) => console.error('Unable to connect to the database:', error)
+    )
+       
+
+    
+    
+    
+ 
 
 
 // Création des en-têtes
@@ -21,10 +30,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
-    "you have been connected successfully!"
-    console.log("you have been connected successfully!")
-})
 
 
 

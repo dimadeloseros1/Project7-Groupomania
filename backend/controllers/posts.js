@@ -1,7 +1,7 @@
 const fs = require('fs');
 const user = require('./user');
 const jwt = require('jsonwebtoken');
-
+const models = require("../models/posts")
 
 module.exports = {
 
@@ -33,15 +33,15 @@ module.exports = {
     },
 
     getAllPost : function (req, res, next) {
+        console.log("hi")
         models.post.findAll({
-            // include: [{
-            //     model: models.user,
-            //     attributes: 'username'
-            // }]
+            
             order:[["createdAt", "DESC"]]
         })
+        
         .then(posts => res.status(200).json(posts))
         .catch(error => res.status(404).json({ error }));
+        
     },
 
     modifyPost : function (req, res, next) {
