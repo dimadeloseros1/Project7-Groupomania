@@ -5,15 +5,14 @@ const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/posts');
 app.use(express.json())
 
-const db = require("./config/db")
+const db = require("./models")
 
 
-    db.sequelize.authenticate().then(
-      () => console.log('Connection has been established successfully.')
-  
-    ).catch(
-        (error) => console.error('Unable to connect to the database:', error)
-    )
+db.sequelize.sync().then((req) =>{
+    app.listen(3002, () => {
+        console.log("server is running");
+    });
+});
        
 
     
