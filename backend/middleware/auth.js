@@ -1,19 +1,26 @@
-const jwt = require("jsonwebtoken")
-require("dotenv").config();
+const jsonwebtoken = require('jsonwebtoken');
+const dotenv = require('dotenv').config({path: './config/.env', encoding: "latin1"});
 
+// Un middleware est un bloc de code qui traite les requêtes et réponses de votre application.
 module.exports = (req, res, next) => {
     try {
-        const token = req.headers.authorization.split(' ')[1];
-        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
-        const userId = decodedToken.userId;
-        if (req.body.userId && req.body.userId !== userId) {
-            throw 'Invalid user ID';
+    // .split(' ')[1]
+
+        const token = req.headers.authorization;
+        const decodedToken = jsonwebtoken.decode(token, process.env.TOKEN_KEY);
+        const uuidUserToken = decodedToken.uuidUser;
+        const isAdminToken = decodedToken.isAdmin;
+        
+        req.auth = {uuidUserToken: uuidUserToken};
+        req.isAdmin = {isAdminToken: isAdminToken};
+        if (req.body.uuid && req.body.uuid !== uuidUserToken) {
+            return res.status(401).json({message: "invalid ID user"})
         } else {
             next();
         }
-    } catch (error) {
-        res.status(401).json({
-            error: new Error ('invalid request!')
+    } catch {
+        return res.status(400).json({
+            message : 'Invalid request!'
         });
     }
 };

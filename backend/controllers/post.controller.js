@@ -1,7 +1,7 @@
 const fs = require('fs');
-const user = require('./user');
+const user = require('./user.controllers');
 const jwt = require('jsonwebtoken');
-const models = require("../models/posts")
+const models = require("../models/")
 
 module.exports = {
 
@@ -33,7 +33,6 @@ module.exports = {
     },
 
     getAllPost : function (req, res, next) {
-        console.log("hi")
         models.post.findAll({
             
             order:[["createdAt", "DESC"]]

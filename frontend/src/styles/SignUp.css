@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    
+}
+#root {
+    min-height: 100vh;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.signup--form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 20%;
+    
+}
+
+
+
+.field {
+    
+    height: 70px;
+}
+
+.input {
+    height: 30px;
+    width: 20rem;
+    text-indent: 15px;
+    background-color: rgb(248, 248, 248);
+}
+
+.signup--button {
+    width: 12rem;
+    height: 2.5rem;
+    margin-top: 20px;
+    background-color: rgb(50, 245, 245);
+    border-radius: 6px;
+}
+
+
+
+
