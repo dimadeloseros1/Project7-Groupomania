@@ -13,6 +13,7 @@ module.exports.signUp = (req, res) => {
                 email: req.body.email,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
+                username: req.body.username,
                 poste: req.body.poste,
                 isAdmin: req.body.isAdmin,
                 picture : `${req.protocol}://${req.get('host')}/images/pictureProfile/firstProfile.png`,

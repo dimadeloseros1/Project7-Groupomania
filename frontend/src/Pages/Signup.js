@@ -1,37 +1,79 @@
-import React from "react"
-import axios from "axios"
-import "../styles/SignUp.css"
-import logo from "../images/icon-left-font.png"
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import logo from "../images/iconBig.svg"
 
-export default function SignUp() {
-    return (
-        <div className="outside--box">
-            <img src={logo} alt="Company's logo" style={{height: 25 +"rem", width: "auto"}}></img>
-            <div className="inside--box">
-                <form className="signup--form">
-                <h1 className="signup--h1">Signup</h1>
-                    <div className="field">
-                        <label className="username--label label" htmlFor="username">Username</label>
-                        <input className="username--input input" type="text" placeholder="Username"></input>
-                    </div>
-                    <div className="field">
-                        <label className="email--label label" htmlFor="email">Email</label>
-                        <input className="email--input input" type="email" placeholder="Email"></input>
-                    </div>
-                    <div className="field">
-                        <label className="password--label label" htmlFor="password">Password</label>
-                        <input className="password--input input" type="password" placeholder="Password"></input>
-                    </div>
-                    <div className="field">
-                        <label className="verify--passoword label" htmlFor="verifyP">Verify Password</label>
-                        <input className="verif--password input" type="password" placeholder="Verify Password"></input>
-                    </div>
-                    <div className="button">
-                        <button className="signup--button">Subscribe</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    )
+function CreatePost() {
+  const initialValues = {
+    title: "",
+    postText: "",
+    username: "",
+    passwordConfirmation: "",
+
+  };
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string().required("Username is required").min(2, "Username has to have minimun 2 charachters"),
+    email: Yup.string().email("Email is incorrect").required("Email required"),
+    password: Yup.string().min(4, "Minimum 4 characthers").max(10, "Maximum 10 charachters").required("Password is required"),
+    passwordConfirmation: Yup.string().oneOf([Yup.ref("password"), null], "Password does not match").required("Password is required")
+  });
+
+  const onSubmit = (data) => {
+    axios.post("http://localhost:3001/api/user", data).then((response) => {
+      console.log("IT WORKED");
+    });
+  };
+  return (
+    <div className="registration--box">
+      <img src={logo} className="logo"/>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
+        <Form className="formContainer">
+        <h1>SignUp</h1>
+          <label>Username: </label>         
+          <Field
+            autoComplete="off"
+            id="registration"
+            name="username"
+            placeholder="Username"
+          />
+           <ErrorMessage name="username" component="span" />
+          <label>Email: </label>
+         
+          <Field
+            autoComplete="off"
+            id="registration"
+            name="email"
+            placeholder="email"
+          />
+           <ErrorMessage name="email" component="span" />
+          <label>Password </label>
+          <Field
+            autoComplete="off"
+            id="registration"
+            name="password"
+            placeholder="(Ex. John123...)"
+          />
+           <ErrorMessage name="password" component="span" />
+          <label>Confirm Password: </label>
+          <Field
+            autoComplete="off"
+            id="registration"
+            name="passwordConfirmation"
+            placeholder="(Ex. John123...)"
+          />
+            <ErrorMessage name="passwordConfirmation" component="span" />
+          <button type="submit">Submit</button>
+          <a href="/" className="href">Login</a>
+        </Form>
+      </Formik>
+    </div>
+  );
 }
 
+export default CreatePost;
