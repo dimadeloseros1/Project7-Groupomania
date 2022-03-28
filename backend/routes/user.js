@@ -7,7 +7,7 @@ const multer = require('../middleware/multer-config');
 
 //Authentification
 router.post("/register", authController.signUp);
-router.post("/login/", authController.login);
+router.post("/login", authController.login);
 router.get("/logout", authController.logout);
 
 //User DB

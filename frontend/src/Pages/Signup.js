@@ -4,11 +4,11 @@ import * as Yup from "yup";
 import axios from "axios";
 import logo from "../images/iconBig.svg"
 
-function CreatePost() {
+function Registraion() {
   const initialValues = {
-    title: "",
-    postText: "",
     username: "",
+    email: "",
+    password: "",
     passwordConfirmation: "",
 
   };
@@ -21,13 +21,13 @@ function CreatePost() {
   });
 
   const onSubmit = (data) => {
-    axios.post("http://localhost:3001/api/user", data).then((response) => {
+    axios.post("http://localhost:3001/api/user/register", data).then((response) => {
       console.log("IT WORKED");
     });
   };
   return (
     <div className="registration--box">
-      <img src={logo} className="logo"/>
+      <img src={logo} className="logo" alt="logo"/>
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -57,6 +57,7 @@ function CreatePost() {
             autoComplete="off"
             id="registration"
             name="password"
+            type="password"
             placeholder="(Ex. John123...)"
           />
            <ErrorMessage name="password" component="span" />
@@ -65,15 +66,19 @@ function CreatePost() {
             autoComplete="off"
             id="registration"
             name="passwordConfirmation"
+            type="password"
             placeholder="(Ex. John123...)"
           />
             <ErrorMessage name="passwordConfirmation" component="span" />
-          <button type="submit">Submit</button>
-          <a href="/" className="href">Login</a>
+          <div className="footer--registration">
+            <button type="submit">Submit</button>
+            <a href="/" className="href">Login</a>
+          </div>
+          
         </Form>
       </Formik>
     </div>
   );
 }
 
-export default CreatePost;
+export default Registraion;

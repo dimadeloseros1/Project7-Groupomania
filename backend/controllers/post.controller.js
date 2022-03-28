@@ -11,7 +11,7 @@ module.exports = {
         let title = req.body.title;
         let content = req.body.content;
         let attachment = req.body.attachment;
-        let userId = req.auth.userId
+        let userId = req.body.userId
 
         if(!attachment) {
             attachment = '';
