@@ -1,11 +1,17 @@
 import React from "react";
 import "../styles/SignUp.css"
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage} from "formik";
+import { BrowserRouter, Link, useNavigate  } from "react-router-dom";
+
 import * as Yup from "yup";
 import axios from "axios";
 import logo from "../images/iconBig.svg"
-
+import { useState } from "react";
 function LogIn() {
+  const navigate = useNavigate()
+  const [alert, setAlert] = useState(false)
+  const [alertMessage, setAlertMessage] = useState("")
+
   const initialValues = {
     username: "",
     password: "",
@@ -19,12 +25,18 @@ function LogIn() {
 
   const onSubmit = (data) => {
     axios.post("http://localhost:3001/api/user/login", data).then((response) => {
-      console.log("IT WORKED");
+     if (response.data.error) {
+        setAlert(true);
+        setAlertMessage(response.data.error);
+      } else {
+        navigate("/Home");
+      }
     });
-  };
+};
   return (
     <div className="registration--box">
       <img src={logo} alt="logo" className="logo"/>
+      <div className="registration--prime">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -39,7 +51,7 @@ function LogIn() {
             name="username"
             placeholder="Username"
           />
-           <ErrorMessage name="username" component="span" />
+           <ErrorMessage className="span--registration" name="username" component="span" />
           <label>Password</label>
           <Field
             autoComplete="off"
@@ -48,12 +60,14 @@ function LogIn() {
             type="password"
             placeholder="(Ex. John123...)"
           />
-           <ErrorMessage name="password" component="span" />
+           <ErrorMessage className="span--registration" name="password" component="span" />
           
-          <button type="submit">Submit</button>
+                <button type="submit">Submit</button>
+          
           <a href="/SignUp" className="href">No acc yet? Create an account here</a>
         </Form>
       </Formik>
+      </div>
     </div>
   );
 }

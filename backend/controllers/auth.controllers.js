@@ -32,14 +32,14 @@ module.exports.signUp = (req, res) => {
 exports.login = (req, res, next) => {
     console.log('Connexion :', req.body);
     User
-      .findOne({ where: { username: req.body.username } })
+      .findOne({ where: { username: req.body.username} })
       .then((user) => {
         
-        if (!user) { return res.status(404).json({ error: 'Cant login'}) }
+        if (!user) { return res.status(404).json({ error: 'Cant login', message: "can't log in"}) }
         bcrypt
           .compare(req.body.password, user.dataValues.password)
           .then(valid => {
-            if (!valid) { return res.status(401).json({ error: 'Password is incorrect!' }) }
+            if (!valid) { return res.status(401).json({ error: 'Password is incorrect!', message: "Password is incorrect" }) }
    
             res.status(200).json({
               id: user.dataValues.id,

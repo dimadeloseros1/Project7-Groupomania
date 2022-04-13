@@ -1,0 +1,68 @@
+
+.topbarLeft {
+    flex: 3;   
+}
+
+.topbarRight {
+    display: flex;
+    align-items: center;
+    
+}
+
+.homepage--icon {
+    width: 100px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+}
+
+.topBarContainer {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: rgb(80, 77, 233);
+}
+
+.topBarLink {
+    margin: 5px 10px;
+}
+.topBarLinks {
+    margin: 15px;
+    display: flex;
+    color: white;
+}
+
+.topBarIconItems {
+    display: flex;
+    margin-right: 14px;
+    color: white;
+}
+
+.topBarIconBadge {
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    position: absolute;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.notifications--logo {
+    font-size: 2rem !important;
+}
+
+.person--logo {
+    font-size: 2rem !important;
+}
+
+.groupoManiaLogo {
+    margin: 0px 20px;
+}
