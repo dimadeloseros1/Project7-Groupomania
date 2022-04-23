@@ -2,16 +2,21 @@ import React from "react";
 import "../styles/SignUp.css"
 import { Formik, Form, Field, ErrorMessage} from "formik";
 import { BrowserRouter, Link, useNavigate  } from "react-router-dom";
-
+import { useContext } from "react";
 import * as Yup from "yup";
 import axios from "axios";
 import logo from "../images/iconBig.svg"
 import { useState } from "react";
+import { AuthContext } from "../App";
+
+
+
+
 function LogIn() {
   const navigate = useNavigate()
   const [alert, setAlert] = useState(false)
   const [alertMessage, setAlertMessage] = useState("")
-
+  const [authToken,setAuthtoken] = useContext(AuthContext)
   const initialValues = {
     username: "",
     password: "",
@@ -22,13 +27,20 @@ function LogIn() {
     username: Yup.string().required("Username is required").min(2, "Username has to have minimun 2 charachters"),
     password: Yup.string().min(4, "Minimum 4 characthers").max(10, "Maximum 10 charachters").required("Password is required"),
   });
-
   const onSubmit = (data) => {
     axios.post("http://localhost:3001/api/user/login", data).then((response) => {
      if (response.data.error) {
         setAlert(true);
         setAlertMessage(response.data.error);
       } else {
+        setAuthtoken(JSON.stringify({
+          token: response.data.token,
+          username:JSON.parse(response.config.data).username
+        }))
+        localStorage.setItem('user',JSON.stringify({
+          token: response.data.token,
+          username:JSON.parse(response.config.data).username
+        }))
         navigate("/Home");
       }
     });

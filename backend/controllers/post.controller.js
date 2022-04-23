@@ -2,27 +2,46 @@ const fs = require('fs');
 const user = require('./user.controllers');
 const jwt = require('jsonwebtoken');
 const models = require("../models/")
+const {User} = require('../models')
 
 module.exports = {
 
     createPost : function(req, res, next) {
 
         // Params
-        let title = req.body.title;
-        let content = req.body.content;
-        let attachment = req.body.attachment;
-        let userId = req.body.userId
+        let title = req.body.title || 'Test Title';
+        let content = req.body.data.content;
+        let img = req.body.img || ''
+        let attachment = req.body.attachment || '';
+        let userId = JSON.parse(req.headers.authorization).username
 
+
+
+        
         if(!attachment) {
             attachment = '';
         } else {
             attachment = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         }
+        User
+        .findOne({ where: { username: userId} })
+        .then((user) => {userId= user.dataValues.id
+        
+        
+        
+        
+        
+        
+       
 
+        
         let newPost = models.post.create({
             title: title,
             content: content,
-            attachment: attachment,
+            img: img,
+            attachment: attachment ,
+            createdAt: Date.now(),
+            updatedAt:Date.now(),
             likes: 0,
             UserId: userId
         })
@@ -30,11 +49,13 @@ module.exports = {
             'postId': newPost.id
         }))
         .catch(error => res.status(400).json({ error }));
+
+    })
     },
 
     getAllPost : function (req, res, next) {
         models.post.findAll({
-            
+            include: User,
             order:[["createdAt", "DESC"]]
         })
         
@@ -105,7 +126,7 @@ module.exports = {
                     postId: postLiked.id,
                     userId: userId
                 })
-                .then(() => res.status(201).json({ message: 'Post Liké !'}))
+                .then(() => res.status(201).json({ message: 'Post liked!'}))
                 .catch(error => res.status(400).json({ error }));
             })
             .catch(error => res.status(404).json({ error }));
@@ -121,7 +142,7 @@ module.exports = {
                         userId: userId
                     }
                 })
-                .then(() => res.status(200).json({ message: 'Like supprimé'}))
+                .then(() => res.status(200).json({ message: 'Like is erased'}))
                 .catch(error => res.status(404).json({ error }));
             })
             .catch(error => res.status(404).json({ error }));

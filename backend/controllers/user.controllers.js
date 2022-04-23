@@ -15,6 +15,7 @@ module.exports.getAllUsers = (req, res) => {
 
 module.exports.userInfo = (req, res, next) => {
     const uuid = req.params.uuid
+    console.log(req.params)
     User.findOne({
         where: {uuid: uuid},
         include: [{model: Posts, as: "posts", include: ["comment"]}],

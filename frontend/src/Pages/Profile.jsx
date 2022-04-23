@@ -3,8 +3,10 @@ import TopBar from "../components/Topbar";
 import RightBar from "../components/RightBar"
 import Feed from "../components/Feed"
 
+
 export default function Profile() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
+    
     return (
         <>
         <TopBar />

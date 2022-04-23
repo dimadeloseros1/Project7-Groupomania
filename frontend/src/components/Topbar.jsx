@@ -1,10 +1,17 @@
 import React from "react";
-import logo from "../images/iconBig.svg"
 import "../styles/Topbar.css"
 import { Person, Notifications } from "@mui/icons-material"
 import {Link} from "react-router-dom"
+import { Button } from "@mui/material";
+import {AuthContext} from '../App'
+import { useContext } from "react";
+function TopBar() { 
+    const [authToken,setAuthtoken] = useContext(AuthContext)
 
-function TopBar() {
+    const logout = () =>{
+      setAuthtoken('')
+      localStorage.removeItem('user')
+    }
     return (
       <section>
         <div className="topBarContainer">
@@ -23,6 +30,7 @@ function TopBar() {
               <div className="topBarLinks">
                     <Person className="person--logo"/>
                     <span className="topBarIconBadge">1</span>
+                    <Link to='/' onClick={logout} style={{textDecoration:"none", color:"white"}}>Logout</Link>
                     <Link to="/Profile" style={{textDecoration:"none", color:"white"}}>
                     <div className="topBarLink">Profile</div>
                   </Link>
