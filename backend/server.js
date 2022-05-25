@@ -1,7 +1,15 @@
 const http = require('http');
 const app = require('./app');
 const {sequelize} = require("./models");
+const cors = require("cors");
 
+const corsOptions = {
+    origin: ["http://localhost:3000","http://localhost:3001"],
+    credentials:true,
+    optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
 const normalizePort = val => {
     const port = parseInt(val, 10);
 

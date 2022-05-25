@@ -21,8 +21,6 @@ export default function Rendering() {
     catch(err){
       console.log(err)
       
-      
-      
         alert('not signed in')
         localStorage.removeItem('user')
       

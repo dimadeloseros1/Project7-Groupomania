@@ -3,13 +3,14 @@ import { PermMedia } from "@mui/icons-material"
 import { useContext, useRef, useState } from "react";
 import axios from "axios";
 import { AuthContext,PostsContext } from "../App";
+import { useParams } from "react-router-dom";
 
 
 export default function Share() {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { user } = useContext(AuthContext)
     const inputRef = useRef();
-    const [file, setFile] = useState(null);
+    const [image, setImage] = useState(null);
     const [authToken,setAuthtoken] = useContext(AuthContext)
     const [isnewpost,setisnewpost] = useContext(PostsContext)
     const [userInfo, setUserInfo] = useState({
@@ -54,15 +55,35 @@ export default function Share() {
             //     newPost.img = fileName;
             //     console.log(newPost)
             //     try {
-            //         await axios.post("/upload", data);
+            //         await axios.post("api/upload", data);
             //     } catch (error) {
             //         console.log(error)
             //     }
             // }
-           
+            
+        
+
+        
+    }
+        const handleInput = async () => {
+                console.log("Handle Uploaded")
+               await axios.post("http://localhost:3001/api/upload", {
+                headers: { 'Content-Type': 'multipart/form-data'}
+               });
+               
         }
+    
+        const getFileInfo = (e) => {
+            console.log('File is working ')
+            console.log(e.target.files[0]);
+            const formData = new FormData();
+            formData.append("public/images", e.target.files[0], e.target.files[0].name);
+            setImage(formData);
+        }
+    
     return (
-        <div className="share">
+    
+        <form method="POST" action="/upload" encType="multipart/form-data">
             <div className="shareWrapper">
                 <div className="shareTop">
                     <img className="shareProfileImg" src="/assets/Frodo.jpeg" alt="frodo-pic" />
@@ -76,13 +97,14 @@ export default function Share() {
                     <div className="shareOptions">
                         <label htmlFor="file" className="shareOption">
                             <PermMedia htmlColor="orange" className="shareIcon" />
-                            <span className="shareOptionText">Photo or video</span>
-                            <input style={{display: "none"}} type="file" id="file" accept=".png,.jpeg,.jpg,.gif"/>
+                            <span className="shareOptionText" onClick={handleInput}>Photo or video</span>
                         </label>
+                        <input style={{display: "none"}}  type="file" id="file" name="file" accept=".png,.jpeg,.jpg,.gif" onClick={getFileInfo}/>
                     </div>
                     <button onClick={sendPost} className="shareButton" type="submit">Share</button>
+                    <input type="submit" value="Upload" />
                 </div>
             </div>
-        </div>
+        </form>
     )
 }

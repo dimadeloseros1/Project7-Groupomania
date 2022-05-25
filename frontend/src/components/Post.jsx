@@ -3,15 +3,20 @@ import {  MoreVert } from "@mui/icons-material"
 import { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { format } from "timeago.js"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { AuthContext } from "../App"
+
 
 export default function Post({post}) {
     const [like, setLike] = useState(post.likes);
     const [isLiked, setIsLiked] = useState(false)
     const [user, setUser] = useState({})
+    let { id } = useParams();
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
+    const backend = process.env.BACKEND_APP_PUBLIC_FOLDER
     const [authToken,setAuthtoken] = useContext(AuthContext)
+    
+    
     useEffect(() => {
         const fetchUser = async () => {
         const res = await axios.get(`/users?UserId=${post.UserId}`,{headers:{
@@ -22,7 +27,15 @@ export default function Post({post}) {
     fetchUser()
     },[post.UserId])
     
-
+    const deletePost = (id, e) => {
+        
+        if (window.confirm('Are you sure you want to delete this post?')) {
+            axios.delete(`http://localhost:3001/api/post/${id}`, {
+            headers: { authToken: localStorage.getItem("authToken") },
+         })
+            
+        }
+           };
 
 
     const likeHandler = () => {
@@ -46,7 +59,7 @@ export default function Post({post}) {
                 </div>
                 <div className="postCenter">
                     <span className="postText">{post.content}</span>
-                    <img className="postImg" src={PF+post.img} alt="" />
+                    <img className="postImg" src={"http://localhost:3001/images/" + post.img} alt="" />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
@@ -56,6 +69,7 @@ export default function Post({post}) {
                     </div>
                     <div className="postBottomRight">
                         <span className="postCommentText">{post.comment} comments</span>
+                        <button onClick={() => {deletePost(post.id)}}>Delete</button>
                     </div>
                 </div>
             </div>

@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     likes: DataTypes.INTEGER,
     createdAt:DataTypes.DATE,
     updatedAt:DataTypes.DATE,
-    UserId:DataTypes.STRING
+    UserId:DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'post',

@@ -30,7 +30,7 @@ function TopBar() {
               <div className="topBarLinks">
                     <Person className="person--logo"/>
                     <span className="topBarIconBadge">1</span>
-                    <Link to='/' onClick={logout} style={{textDecoration:"none", color:"white"}}>Logout</Link>
+                    <Link to='/' onClick={logout} style={{textDecoration:"none", color:"white"}} className="logout--button">Logout</Link>
                     <Link to="/Profile" style={{textDecoration:"none", color:"white"}}>
                     <div className="topBarLink">Profile</div>
                   </Link>

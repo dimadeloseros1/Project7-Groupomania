@@ -32,26 +32,28 @@ module.exports.userInfo = (req, res, next) => {
 }
 
 module.exports.deleteUser = (req, res, next) => {
-
-    const uuidUser = req.params.uuid
+    console.log("About to delete user");    
+    const id = req.params.id
     User.findOne({
-        where: {uuid: uuidUser},
+        where: {id: id},
     })
         .then((user) => {
 
-            if (user.uuid !== req.auth.uuidUserToken) {
-                return res.status(400).json({
-                    message: 'Unauthorized request',
-                })
-            }
+            // if (user.uuid !== req.auth.uuidUserToken) {
+            //     return res.status(400).json({
+            //         message: 'Unauthorized request',
+            //     })
+            // }
 
-            const filename = user.picture.split('/images/profile/')[1];
-            fs.unlink(`images/profile/${filename}`, () => {
+            // const filename = user.picture.split('/images/profile/')[1];
+            // fs.unlink(`images/profile/${filename}`, () => {
 
-            })
+            // })
+            
+            // Look up all of these user Posts, then delete
 
             user.destroy()
-            return res.status(200).json({message: 'User destroy'})
+            return res.status(200).json({message: 'User destroyed'})
         })
         .catch((err) => {
             return res.status(500).json({err: err})

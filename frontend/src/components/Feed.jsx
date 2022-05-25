@@ -29,7 +29,7 @@ export default function Feed({ username }) {
             {posts.map((p) =>(
                 <Post key={p.id} post={p}/>
              ))}
-            
+
             </div>
         </div>
     )
