@@ -7,14 +7,13 @@ const {User} = require('../models')
 module.exports = {
 
     createPost : function(req, res, next) {
-        console.log(req.file)
-        console.log("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-        
+        console.log(req)
         // Params
         let title = req.body.title || 'Test Title';
-        let content = req.body.data.content;
-        let img = req.body.img || '';
+        let content = req.body.data || 'testing';
+        let img = (req.file)? req.file.filename : ""
         let attachment = req.body.attachment || '';
+        // console.log(req.headers)
         let userId = JSON.parse(req.headers.authorization).username
 
 

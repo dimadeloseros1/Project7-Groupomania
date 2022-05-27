@@ -9,8 +9,7 @@ const multer = require("multer")
 const {User} = require("./models");
 const path = require("path");
 const cors = require("cors");
-const { application } = require('express');
-
+const postCtrl = require('./controllers/post.controller');
 
 const corsOptions = {
     origin: ["http://localhost:3001"],
@@ -50,19 +49,24 @@ const storageUpload = multer.diskStorage({
 
 const upload = multer({storage: storageUpload});
 
-app.use("/images", express.static(path.join(__dirname, "/images")))
-app.use("api/upload", postRoutes)
+app.use("/images", express.static(path.join(__dirname, "/public/images")))
 
 
-// app.post("/api/upload", upload.single("file"), (req, res) => {
-//     try {
-//         console.log("File uploaded")
-//         return res.status(201).json("File uploaded successfully..")
-//     } catch (error) {
-//         console.log(error)
-//     }
-// })
-
+app.post("/api/upload", upload.single("file"), (req, res) => {
+    if(req.file) {
+        console.log("File uploaded")
+        console.log(req.file.filename)
+    } else {
+        console.log("No file detected")
+    }
+    try {
+        postCtrl.createPost(req, res)
+        return res
+        // return res.status(201).json("File uploaded successfully..")
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 localhost3000://public//images
 // app.use(rateLimite({

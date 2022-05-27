@@ -66,7 +66,7 @@ export default function Profile() {
                         className="delete--button"
                         value="delete"
                         
-                        onClick={() => {deleteProfile()}}>Delete Profile</button>
+                        onClick={() => {deleteProfile()}}>Delete User</button>
                 
                 <RightBar />
             </form>
