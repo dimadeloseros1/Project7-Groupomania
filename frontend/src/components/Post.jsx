@@ -18,10 +18,13 @@ export default function Post({post}) {
     
     
     useEffect(() => {
+        console.log(isLiked)  
+        let token = JSON.parse(authToken) 
         const fetchUser = async () => {
-        const res = await axios.get(`/users?UserId=${post.UserId}`,{headers:{
-            authorization:authToken
-        }});
+        const res = await axios.get(`/users/${post.UserId}`,{
+            headers: { authToken: localStorage.getItem("authToken") },
+        });
+        console.log(res.data)
         setUser(res.data)
     }
     fetchUser()
@@ -50,7 +53,7 @@ export default function Post({post}) {
                         <Link to ={`Profile/${user.username}`}>
                         <img className="postProfileImg" src={user.profilePicture || "assets/Harry.jpeg"} alt="" />
                         </Link>
-                        <span className="postUserName">Hi{user.username}Hello</span>
+                        <span className="postUserName">{user.username}</span>
                         <span className="postUserDate">{format(post.createdAt)}</span>
                     </div>
                     <div className="postTopRight">

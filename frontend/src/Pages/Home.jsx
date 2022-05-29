@@ -17,8 +17,7 @@ export default function PostAComment() {
     <>
       <TopBar />
       <div className="homeContainer">
-        <Feed />
-        <RightBar />
+        <Feed /> 
       </div>
       
     </>    
@@ -26,7 +25,7 @@ export default function PostAComment() {
   else
     return(
     <div>
-      not signed in
+      Not signed in
     </div>
     )
   }

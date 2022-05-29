@@ -28,14 +28,7 @@ module.exports = {
         .findOne({ where: { username: userId} })
         .then((user) => {userId= user.dataValues.id
         
-        
-        
-        
-        
-        
-       
-
-        
+  
         let newPost = models.post.create({
             title: title,
             content: content,
@@ -77,7 +70,7 @@ module.exports = {
                     newPost,
                     { where: { id: req.params.id }}
                 )
-                .then(() => res.status(200).json({ messsage: 'Post modifié !'}))
+                .then(() => res.status(200).json({ messsage: 'Post modified'}))
                 .catch(error => res.status(400).json({ error }));
             }
         })

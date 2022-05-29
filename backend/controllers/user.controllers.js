@@ -9,21 +9,23 @@ module.exports.getAllUsers = (req, res) => {
             return res.status(200).send(users)
         })
         .catch((err) => {
-            res.status(500).json({err: 'Something'})
+            res.status(500).json({err: 'Something went wrong'})
         })
 };
 
 module.exports.userInfo = (req, res, next) => {
-    const uuid = req.params.uuid
-    console.log(req.params)
+    
+    const uuid = req.params.UserId
+   // console.log(req.params)
     User.findOne({
-        where: {uuid: uuid},
-        include: [{model: Posts, as: "posts", include: ["comment"]}],
-    })
+        where: {id: uuid},
+       // include: [{model: Posts, as: "posts", include: ["comment"]}],
+    })  
         .then((user) => {
-            user.posts.sort(function (a, b) {
-                return b.createdAt - a.createdAt
-            })
+           // console.log(user)
+            // user.posts.sort(function (a, b) {
+            //     return b.createdAt - a.createdAt
+            // })
             return res.status(200).json(user)
         })
         .catch((err) => {

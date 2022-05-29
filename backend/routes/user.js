@@ -12,7 +12,7 @@ router.get("/logout", authController.logout);
 
 //User DB
 router.get("/",  userController.getAllUsers);
-router.get("/:UserId", auth ,  userController.userInfo);
+router.get("/:UserId",  userController.userInfo);
 router.put("/:uuid", auth, multer,userController.updateUser);
 router.delete("/:id", userController.deleteUser);
 

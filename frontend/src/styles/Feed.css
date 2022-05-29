@@ -1,3 +1,8 @@
-.feed {
-    flex: 2;    
+
+
+.feedWrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 6rem;
+    
 }

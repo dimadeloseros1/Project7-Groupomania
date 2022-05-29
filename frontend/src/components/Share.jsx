@@ -1,6 +1,6 @@
 import "../styles/Share.css"
 import { PermMedia } from "@mui/icons-material"
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { AuthContext,PostsContext } from "../App";
 import { useParams } from "react-router-dom";
@@ -15,6 +15,9 @@ export default function Share() {
     const [isnewpost,setisnewpost] = useContext(PostsContext)
     const [userInfo, setUserInfo] = useState({
         file:[],
+    })
+    useEffect(() => {
+        inputRef.current.value = ""
     })
     const sendPost = async (e) =>{
         e.preventDefault()
@@ -38,12 +41,12 @@ export default function Share() {
             console.log(isnewpost)
             setisnewpost(isnewpost+1)
 
-            const handleInputChange = (event) => {
-                setUserInfo({
-                    ...userInfo,
-                    file:event.target.files[0],
-                })
-            }
+            // const handleInputChange = (event) => {
+            //     setUserInfo({
+            //         ...userInfo,
+            //         file:event.target.files[0],
+            //     })
+            // }
 
             
 
@@ -102,8 +105,7 @@ export default function Share() {
                         </label>
                         <input  type="file" id="file" name="file" accept=".png,.jpeg,.jpg,.gif"/>
                     </div>
-                    <button onClick={sendPost} className="shareButton">Share</button>
-                    
+                    <button onClick={sendPost} className="shareButton">Share</button>          
                 </div>
             </div>
         </form>
