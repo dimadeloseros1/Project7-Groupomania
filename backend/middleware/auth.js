@@ -10,10 +10,13 @@ module.exports = (req, res, next) => {
         const decodedToken = jsonwebtoken.decode(token, process.env.TOKEN_KEY);
         const uuidUserToken = decodedToken.uuidUser;
         const isAdminToken = decodedToken.isAdmin;
+        console.log(req.body)
         
         req.auth = {uuidUserToken: uuidUserToken};
         req.isAdmin = {isAdminToken: isAdminToken};
-        if (req.body.uuid && req.body.uuid !== uuidUserToken) {
+        
+        if (req.body.UserId  && req.body.UserId  !== uuidUserToken) {
+            console.log(req)
             return res.status(401).json({message: "invalid ID user"})
         } else {
             next();

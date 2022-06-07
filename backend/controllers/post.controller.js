@@ -7,16 +7,14 @@ const {User} = require('../models')
 module.exports = {
 
     createPost : function(req, res, next) {
-        console.log(req)
         // Params
-        let title = req.body.title || 'Test Title';
-        let content = req.body.data || 'testing';
+        let title = req.body.title ;
+        let content = req.body.data ;
         let img = (req.file)? req.file.filename : ""
         let attachment = req.body.attachment || '';
-        // console.log(req.headers)
         let userId = JSON.parse(req.headers.authorization).username
 
-
+    
 
         
         if(!attachment) {
@@ -87,24 +85,23 @@ module.exports = {
     },
 
     deletePost: function (req, res, next) {
-        console.log("sssss")
-        // const userId = req.userId;
+         const userId = req.userId;
         models.post.findOne({
             where: {id: req.params.id}
         })
         .then(deletePost => {
-            // if ( deletePost.UserId === userId || isAdmin == true ) {
-            //     if (deletePost.attachment !== '') {
-            //         const filename = deletePost.attachment.split('/images/'[1])
-            //         fs.unlink(`images/${filename}`)
-            //     }
+            if ( deletePost.UserId === userId || isAdmin == true ) {
+                if (deletePost.attachment !== '') {
+                    const filename = deletePost.attachment.split('/images/'[1])
+                    fs.unlink(`images/${filename}`)
+                }
                 models.post.destroy({
                     where: {id: req.params.id}
                 })
                 .then(() => res.status(200).json({ message: 'Post deleted'}))
                 .catch(error => res.status(400).json({ error }));
             }
-        )
+    })
         .catch(error => res.status(404).json({ error }));
     },
 

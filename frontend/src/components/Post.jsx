@@ -22,9 +22,11 @@ export default function Post({post}) {
         let token = JSON.parse(authToken) 
         const fetchUser = async () => {
         const res = await axios.get(`/users/${post.UserId}`,{
-            headers: { authToken: localStorage.getItem("authToken") },
+            headers:{
+                authorization:authToken
+            },
         });
-        console.log(res.data)
+        
         setUser(res.data)
     }
     fetchUser()
@@ -34,7 +36,9 @@ export default function Post({post}) {
         
         if (window.confirm('Are you sure you want to delete this post?')) {
             axios.delete(`http://localhost:3001/api/post/${id}`, {
-            headers: { authToken: localStorage.getItem("authToken") },
+                headers:{
+                    authorization:authToken
+                },
          })
             
         }

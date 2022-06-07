@@ -99,11 +99,11 @@ export default function Share() {
                 <hr className="shareHr"/>
                 <div className="shareBottom">
                     <div className="shareOptions">
-                        <label htmlFor="file" className="shareOption">
+                        <label  className="shareOption">
                             <PermMedia htmlColor="orange" className="shareIcon" />
                             <span className="shareOptionText">Photo or video</span>
+                            <input style={{display: "none"}}  type="file" id="file" name="file" accept=".png,.jpeg,.jpg,.gif"/>
                         </label>
-                        <input  type="file" id="file" name="file" accept=".png,.jpeg,.jpg,.gif"/>
                     </div>
                     <button onClick={sendPost} className="shareButton">Share</button>          
                 </div>

@@ -40,7 +40,7 @@ export default function Profile() {
         let id = JSON.parse(authToken).id
         if (window.confirm("Are you sure that you want to delete your profile?")) {
             axios.delete(`http://localhost:3001/api/users/${id}`,{
-                headers: {authToken: localStorage.getItem("authToken")}
+                headers: {authorization:authToken}
             })
             .then(() => window.localStorage.clear())
             window.location = "/"
