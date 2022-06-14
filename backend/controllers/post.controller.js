@@ -55,14 +55,21 @@ module.exports = {
         })
 
             .then((posts) => {
-                let maxPostId = 195
+                let maxPostId = 1
+                console.log(JSON.stringify(posts))
+
+                posts.forEach(element => {
+                    maxPostId = (element.id > maxPostId) ? element.id : maxPostId
+                    console.log(JSON.stringify(element))
+                });
+
                 models.User.update(
                     { postView: maxPostId },
                     { where: { id: userLook } }
                 )
                     .then(() => res.status(200).json(posts))
                     .catch(error => res.status(400).json({ error }));
-                        
+
                 //    .then(() => res.status(200).json(posts))
                 //    .catch(error => res.status(500).json({ error }));
 
