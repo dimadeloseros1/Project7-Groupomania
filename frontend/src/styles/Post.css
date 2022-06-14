@@ -28,7 +28,28 @@
 
 .postTopRight {
     cursor: pointer;
+    animation: scale 2s ease infinite;
+    margin: 0px 10px;
 }
+
+.postTopRight--not__active {
+    display: none;
+}
+
+@keyframes scale {
+    from {
+        transform: scale(1);
+    } 
+    to {
+        transform: scale(1.5);
+    }
+}
+
+.iconss {
+    color: blue
+}
+
+
 
 .postProfileImg {
     width: 32px;
@@ -90,5 +111,21 @@
 .postCommentText {
     border-bottom: 1px dashed gray;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 20px;
+    margin: 10px;
+}
+
+.delete--button {
+    font-size: 1.1rem;
+    margin-right: 10px;
+    border-radius: 10%;
+    border-color: aliceblue;
+    
+}
+
+.unread--post  {
+    list-style: none;
+    border: 2px solid greenyellow;
+     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    
 }

@@ -5,6 +5,7 @@ import Login from "./Pages/Login"
 import Signup from "./Pages/Signup"
 import Home from "./Pages/Home"
 import Profile from "./Pages/Profile"
+import DataFetching from "./components/Archive"
 import { createContext } from "react";
 export const AuthContext = createContext();
 export const PostsContext = createContext();
@@ -35,6 +36,7 @@ export default function Rendering() {
       <Route path="/Signup" element={<Signup />} />
       <Route path="/Home" element={<Home />} />
       <Route path="/Profile" element={<Profile />} />
+      <Route path="/Archive" element={<DataFetching />} />
     </Routes>
     </AuthContext.Provider>
   </PostsContext.Provider>

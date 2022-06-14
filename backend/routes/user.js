@@ -7,14 +7,16 @@ const multer = require('../middleware/multer-config');
 
 //Authentification
 router.post("/register", authController.signUp);
-router.post("/login", authController.login);
-router.get("/logout", authController.logout);
+router.post("/login",  authController.login);
+router.get("/logout", auth, authController.logout);
 
 //User DB
 router.get("/", auth,  userController.getAllUsers);
 router.get("/:UserId", auth, userController.userInfo);
 router.put("/:uuid", auth, multer,userController.updateUser);
 router.delete("/:id", auth, userController.deleteUser);
+
+router.post('/updateView/:id', authController.updateView)
 
 
 module.exports = router;

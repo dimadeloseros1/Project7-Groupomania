@@ -1,5 +1,6 @@
 import "../styles/Post.css"
-import {  MoreVert } from "@mui/icons-material" 
+import {  Add, MoreVert } from "@mui/icons-material" 
+import FiberNewIcon from '@mui/icons-material/FiberNew';
 import { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { format } from "timeago.js"
@@ -15,6 +16,12 @@ export default function Post({post}) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
     const backend = process.env.BACKEND_APP_PUBLIC_FOLDER
     const [authToken,setAuthtoken] = useContext(AuthContext)
+    const [isOpen, setIsOpen] = useState(false)
+
+    const deleteNotification = () => {
+        setIsOpen(!isOpen)
+    }
+    
     
     
     useEffect(() => {
@@ -49,20 +56,35 @@ export default function Post({post}) {
         setLike(isLiked ? like - 1 : like + 1)
         setIsLiked(!isLiked)
     }
+    let loggedInUserId = JSON.parse(authToken).id
+    let loggedInUserPostView = JSON.parse(authToken).postView
+    console.log(loggedInUserPostView)
+    console.log(authToken)
     return (
-        <div className="post">
+        <div className="post unseen">
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
                         <Link to ={`Profile/${user.username}`}>
                         <img className="postProfileImg" src={user.profilePicture || "assets/Harry.jpeg"} alt="" />
                         </Link>
-                        <span className="postUserName">{user.username}</span>
+                        <span className="postUserName">{user.username}</span>        
                         <span className="postUserDate">{format(post.createdAt)}</span>
                     </div>
-                    <div className="postTopRight">
-                        <MoreVert />
-                    </div>
+                    <div id="authId">
+                        <ul className="unread--post">
+                            <li>PostId: {post.id}</li> 
+                            <li>LoggedInUser: {loggedInUserId}</li>
+                            <li>lastSeenPostId: {loggedInUserPostView}</li> 
+                            <li>postUserId: {user.id}</li>
+                        </ul>
+                    </div> 
+                    { ((user.id !== loggedInUserId) && (post.id > user.postView)) && 
+                    <div className={`${isOpen ? 'postTopRight--not__active' : 'postTopRight'}`}>
+                        {/* <span className="delete--notification" onClick={deleteNotification}>delete</span> */}
+                        <FiberNewIcon className="iconss" sx={{ fontSize: '50px'}} />
+                    </div> 
+                    }               
                 </div>
                 <div className="postCenter">
                     <span className="postText">{post.content}</span>
@@ -76,7 +98,7 @@ export default function Post({post}) {
                     </div>
                     <div className="postBottomRight">
                         <span className="postCommentText">{post.comment} comments</span>
-                        <button onClick={() => {deletePost(post.id)}}>Delete</button>
+                        <button className="delete--button" onClick={() => {deletePost(post.id)}}>Delete</button>
                     </div>
                 </div>
             </div>

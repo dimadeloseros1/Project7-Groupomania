@@ -33,6 +33,7 @@
 .shareInput {
     border: none;
     width: 80%;
+    font-size: 1.5rem;
 }
 
 .shareButton {

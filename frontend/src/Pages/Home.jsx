@@ -25,7 +25,7 @@ export default function PostAComment() {
   else
     return(
     <div>
-      Not signed in
+      <h1 id="not--signedIn">Not Signed In</h1>
     </div>
     )
   }

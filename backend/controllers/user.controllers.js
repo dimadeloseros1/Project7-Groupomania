@@ -124,3 +124,12 @@ module.exports.updateUser = async (req, res, next) => {
             return res.status(500).json({message: "Error update user" ,err: err})
         })
 }
+
+module.exports.updateView = (req, res, next) => {
+    User.update({
+        id: req.params.id,
+        postView: req.body.postView
+    })
+
+
+}

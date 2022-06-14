@@ -17,7 +17,9 @@ module.exports.signUp = (req, res) => {
                 // post: req.body.poste,
                 // isAdmin: req.body.isAdmin,
                 // picture : `${req.protocol}://${req.get('host')}/images/pictureProfile/firstProfile.png`,
-                password: hash
+                password: hash,
+                postView: '1'
+
             })
                 .then((user) => {
                     return res.status(201).send(user)
@@ -47,6 +49,7 @@ exports.login = (req, res, next) => {
               id: user.dataValues.id,
               firstName: user.dataValues.firstName,
               lastName: user.dataValues.lastName,
+              postView: user.dataValues.postView,
             //   job: user.dataValues.job,
             //   url: user.dataValues.url,
             //   admin: user.dataValues.admin,
@@ -64,6 +67,13 @@ exports.login = (req, res, next) => {
       })
       .catch(error => res.status(500).json({ error: error.message }));
   };
+
+  module.exports.updateView = (req, res, next) => {
+    User.upsert({
+        id: req.params.id,
+        postView: req.body.postView
+    })
+}
   
 module.exports.logout = (req, res) => {
     res.cookie('jwt', '', {maxAge: 1});

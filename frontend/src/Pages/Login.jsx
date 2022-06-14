@@ -31,6 +31,7 @@ function LogIn() {
 
   const onSubmit = (data) => {
     axios.post("http://localhost:3001/api/user/login", data).then((response) => {
+      console.log(response.config.data)
      if (response.data.error) {
         setAlert(true);
         setAlertMessage(response.data.error);
@@ -39,14 +40,16 @@ function LogIn() {
         setAuthtoken(JSON.stringify({
           token: response.data.token,
           username:JSON.parse(response.config.data).username,
-          test: "hiiiiii",
+          test: "eeeeee",
           id: response.data.id,
+          postView: response.data.postView,
         }))
         localStorage.setItem('user',JSON.stringify({
           token: response.data.token,
           username:JSON.parse(response.config.data).username,
-          test: "testinggg",
-          id: response.data.id
+          test: "614",
+          id: response.data.id,
+          postView: response.data.postView,
         }))
         navigate("/Home");
       }
