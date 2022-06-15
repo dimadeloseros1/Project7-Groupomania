@@ -72,14 +72,14 @@ export default function Post({post}) {
                         <span className="postUserDate">{format(post.createdAt)}</span>
                     </div>
                     <div id="authId">
-                        <ul className="unread--post">
+                        <ul className="unread--post" sx={{display: "none"}}>
                             <li>PostId: {post.id}</li> 
                             <li>LoggedInUser: {loggedInUserId}</li>
                             <li>lastSeenPostId: {loggedInUserPostView}</li> 
                             <li>postUserId: {user.id}</li>
                         </ul>
                     </div> 
-                    { ((user.id !== loggedInUserId) && (post.id > user.postView)) && 
+                    { ((user.id !== loggedInUserId) && (post.id > loggedInUserPostView)) && 
                     <div className={`${isOpen ? 'postTopRight--not__active' : 'postTopRight'}`}>
                         {/* <span className="delete--notification" onClick={deleteNotification}>delete</span> */}
                         <FiberNewIcon className="iconss" sx={{ fontSize: '50px'}} />
