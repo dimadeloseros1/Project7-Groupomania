@@ -72,7 +72,7 @@ export default function Post({post}) {
                         <span className="postUserDate">{format(post.createdAt)}</span>
                     </div>
                     <div id="authId">
-                        <ul className="unread--post" sx={{display: "none"}}>
+                        <ul className="unread--post">
                             <li>PostId: {post.id}</li> 
                             <li>LoggedInUser: {loggedInUserId}</li>
                             <li>lastSeenPostId: {loggedInUserPostView}</li> 
